@@ -17,7 +17,7 @@ public class CategoryItemRelationship {
     private Category category;
 
     @ManyToOne
-    @JoinColumn (name = "ITEM_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "ITEM_ID", insertable = false, updatable = false)
     private Item item;
 
     private Timestamp dateAdded;
@@ -33,7 +33,8 @@ public class CategoryItemRelationship {
         @Column(name = "ITEM_ID")
         private Long itemId;
 
-        public Id() {}
+        public Id() {
+        }
 
         public Id(Long categoryId, Long itemId) {
             this.categoryId = categoryId;

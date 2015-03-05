@@ -22,9 +22,8 @@ public class JpaCategoryDao implements CategoryDao {
     }
 
     @Override
-    public Category save(Category category) {
+    public void save(Category category) {
         em.persist(category);
-        return category;
     }
 
     @Override

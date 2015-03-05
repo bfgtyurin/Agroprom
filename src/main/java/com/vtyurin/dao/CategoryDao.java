@@ -7,7 +7,7 @@ import java.util.List;
 public interface CategoryDao {
     Category findOne(Long id);
 
-    Category save(Category category);
+    void save(Category category);
 
     Category update(Category category);
 

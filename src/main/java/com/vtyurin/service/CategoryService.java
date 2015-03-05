@@ -22,9 +22,9 @@ public class CategoryService {
     public Category findOne(Long id) {
         return categoryDao.findOne(id);
     }
-    
-    public Category save(Category category) {
-        return categoryDao.save(category);
+
+    public void save(Category category) {
+        categoryDao.save(category);
     }
 
     public Category update(Category category) {

@@ -25,8 +25,8 @@ public class ItemService {
         return itemDao.getById(id);
     }
 
-    public Item save(Item item) {
-        return itemDao.save(item);
+    public void save(Item item) {
+        itemDao.save(item);
     }
 
     public Item update(Item item) {

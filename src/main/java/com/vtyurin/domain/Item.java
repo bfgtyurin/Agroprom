@@ -63,6 +63,6 @@ public class Item extends BaseEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, price, getCreated(), getUpdated() , categoryItemRelationship);
+        return Objects.hash(name, price, getCreated(), getUpdated(), categoryItemRelationship);
     }
 }

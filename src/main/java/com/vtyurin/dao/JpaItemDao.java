@@ -15,9 +15,8 @@ public class JpaItemDao implements ItemDao {
     EntityManager em;
 
     @Override
-    public Item save(Item item) {
+    public void save(Item item) {
         em.persist(item);
-        return item;
     }
 
     @Override

@@ -33,17 +33,17 @@ public class DataConfigForTest {
 
     @Bean
     public Long getCategoryDefaultTopLevelId() {
-        return (long) 0;
+        return 0L;
     }
 
     @Bean(name = "emf")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-
         factory.setDataSource(dataSource());
         factory.setJpaVendorAdapter(jpaVendorAdapter);
         factory.setJpaProperties(additionalProperties());
+        factory.setPackagesToScan("com.vtyurin.domain");
 
         return factory;
     }

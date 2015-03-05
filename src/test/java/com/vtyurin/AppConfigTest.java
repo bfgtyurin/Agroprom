@@ -29,5 +29,4 @@ public class AppConfigTest {
         assertNotNull(context);
         assertNotNull(entityManager);
     }
-
 }
