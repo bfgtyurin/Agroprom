@@ -2,8 +2,8 @@ package com.vtyurin.service;
 
 import com.vtyurin.dao.CategoryDao;
 import com.vtyurin.domain.Category;
-import com.vtyurin.domain.CategoryItemRelationship;
-import com.vtyurin.domain.Item;
+import com.vtyurin.domain.CategoryProductRelationship;
+import com.vtyurin.domain.Product;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,15 +31,15 @@ public class CategoryService {
         return categoryDao.update(category);
     }
 
-    public Set<Item> getItemsById(Long id) {
+    public Set<Product> getItemsById(Long id) {
         Category category = categoryDao.findOne(id);
-        Set<CategoryItemRelationship> relationships = category.getCategoryItemRelationship();
-        Set<Item> items = new HashSet<>();
-        for (CategoryItemRelationship relationship : relationships) {
-            items.add(relationship.getItem());
+        Set<CategoryProductRelationship> relationships = category.getCategoryProductRelationship();
+        Set<Product> products = new HashSet<>();
+        for (CategoryProductRelationship relationship : relationships) {
+            products.add(relationship.getProduct());
         }
 
-        return items;
+        return products;
     }
 
     public List<Category> findNestedCategoriesById(Long id) {

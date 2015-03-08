@@ -15,7 +15,7 @@ public class Category extends BaseEntity {
     @Column(name = "PARENT_ID")
     private Long parentId;
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private Set<CategoryItemRelationship> categoryItemRelationship = new HashSet<>();
+    private Set<CategoryProductRelationship> categoryProductRelationship = new HashSet<>();
 
     public Category() {
     }
@@ -78,12 +78,12 @@ public class Category extends BaseEntity {
 //        this.parent = parent;
 //    }
 
-    public Set<CategoryItemRelationship> getCategoryItemRelationship() {
-        return categoryItemRelationship;
+    public Set<CategoryProductRelationship> getCategoryProductRelationship() {
+        return categoryProductRelationship;
     }
 
-    public void setCategoryItemRelationship(Set<CategoryItemRelationship> categoryItemRelationship) {
-        this.categoryItemRelationship = categoryItemRelationship;
+    public void setCategoryProductRelationship(Set<CategoryProductRelationship> categoryProductRelationship) {
+        this.categoryProductRelationship = categoryProductRelationship;
     }
 
     @Override
@@ -93,12 +93,12 @@ public class Category extends BaseEntity {
         Category category = (Category) o;
         return Objects.equals(name, category.name) &&
                 Objects.equals(description, category.description) &&
-                Objects.equals(categoryItemRelationship, category.categoryItemRelationship) &&
+                Objects.equals(categoryProductRelationship, category.categoryProductRelationship) &&
                 Objects.equals(parentId, category.parentId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, parentId, categoryItemRelationship);
+        return Objects.hash(name, description, parentId, categoryProductRelationship);
     }
 }

@@ -3,7 +3,7 @@ package com.vtyurin.service;
 import com.vtyurin.config.AppConfig;
 import com.vtyurin.config.DataConfigForTest;
 import com.vtyurin.domain.Category;
-import com.vtyurin.domain.Item;
+import com.vtyurin.domain.Product;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -76,7 +76,7 @@ public class CategoryServiceTest {
 
     @Test
     public void testGetItemsById() {
-        Set<Item> itemsById = service.getItemsById((long) 1002);
+        Set<Product> itemsById = service.getItemsById((long) 1002);
         int sizeOfDummyItemsInTestCategory = 5;
         assertEquals(sizeOfDummyItemsInTestCategory, itemsById.size());
     }

@@ -6,8 +6,8 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "CATEGORY_ITEM_RELATIONSHIP")
-public class CategoryItemRelationship {
+@Table(name = "CATEGORY_PRODUCT_RELATIONSHIP")
+public class CategoryProductRelationship {
 
     @EmbeddedId
     private Id id = new Id();
@@ -17,12 +17,12 @@ public class CategoryItemRelationship {
     private Category category;
 
     @ManyToOne
-    @JoinColumn(name = "ITEM_ID", insertable = false, updatable = false)
-    private Item item;
+    @JoinColumn(name = "PRODUCT_ID", insertable = false, updatable = false)
+    private Product product;
 
     private Timestamp dateAdded;
 
-    public CategoryItemRelationship() {
+    public CategoryProductRelationship() {
     }
 
     public static class Id implements Serializable {
@@ -30,15 +30,15 @@ public class CategoryItemRelationship {
         @Column(name = "CATEGORY_ID")
         private Long categoryId;
 
-        @Column(name = "ITEM_ID")
-        private Long itemId;
+        @Column(name = "PRODUCT_ID")
+        private Long productId;
 
         public Id() {
         }
 
-        public Id(Long categoryId, Long itemId) {
+        public Id(Long categoryId, Long productId) {
             this.categoryId = categoryId;
-            this.itemId = itemId;
+            this.productId = productId;
         }
 
         @Override
@@ -47,23 +47,23 @@ public class CategoryItemRelationship {
             if (o == null || getClass() != o.getClass()) return false;
             Id id = (Id) o;
             return Objects.equals(categoryId, id.categoryId) &&
-                    Objects.equals(itemId, id.itemId);
+                    Objects.equals(productId, id.productId);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(categoryId, itemId);
+            return Objects.hash(categoryId, productId);
         }
     }
 
-    public CategoryItemRelationship(Category category, Item item, Timestamp dateAdded) {
-        this.item = item;
+    public CategoryProductRelationship(Category category, Product product, Timestamp dateAdded) {
+        this.product = product;
         this.category = category;
         this.getId().categoryId = category.getId();
-        this.getId().itemId = item.getId();
+        this.getId().productId = product.getId();
         // lol
-        category.getCategoryItemRelationship().add(this);
-        item.getCategoryItemRelationship().add(this);
+        category.getCategoryProductRelationship().add(this);
+        product.getCategoryProductRelationship().add(this);
     }
 
     public Id getId() {
@@ -74,12 +74,12 @@ public class CategoryItemRelationship {
         this.id = id;
     }
 
-    public Item getItem() {
-        return item;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Category getCategory() {

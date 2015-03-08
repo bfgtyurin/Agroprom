@@ -1,6 +1,6 @@
 package com.vtyurin.dao;
 
-import com.vtyurin.domain.Item;
+import com.vtyurin.domain.Product;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,17 +15,18 @@ public class JpaItemDao implements ItemDao {
     EntityManager em;
 
     @Override
-    public void save(Item item) {
-        em.persist(item);
+    public void save(Product product) {
+        em.persist(product);
     }
 
     @Override
-    public Item update(Item item) {
-        return em.merge(item);
+    public Product update(Product product) {
+        return em.merge(product);
     }
 
     @Override
-    public Item getById(Long id) {
-        return em.find(Item.class, id);
+    public Product getById(Long id) {
+        return em.find(Product.class, id);
     }
+
 }

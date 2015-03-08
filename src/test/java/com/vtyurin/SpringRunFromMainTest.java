@@ -21,7 +21,7 @@ public class SpringRunFromMainTest {
         ctx.register(DataConfigForTest.class);
         ctx.refresh();
 
-        assertNotNull(ctx.getBean("emf"));
+        assertNotNull(ctx.getBean("entityManagerFactory"));
         assertNotNull(ctx.getBean("testDataSource"));
         assertNotNull(ctx.getBean("transactionManager"));
     }

@@ -1,12 +1,12 @@
 package com.vtyurin.dao;
 
 
-import com.vtyurin.domain.Item;
+import com.vtyurin.domain.Product;
 
 public interface ItemDao {
-    void save(Item item);
+    void save(Product product);
 
-    Item update(Item item);
+    Product update(Product product);
 
-    Item getById(Long id);
+    Product getById(Long id);
 }

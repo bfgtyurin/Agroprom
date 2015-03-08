@@ -36,7 +36,7 @@ public class DataConfigForTest {
         return 0L;
     }
 
-    @Bean(name = "emf")
+    @Bean()
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
@@ -78,6 +78,7 @@ public class DataConfigForTest {
     public DatabasePopulator databasePopulator(DataSource dataSource) {
         final ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
         databasePopulator.addScript(new ClassPathResource("sql/test_database.sql"));
+        databasePopulator.setSqlScriptEncoding("UTF-8");
         try {
             databasePopulator.populate(dataSource.getConnection());
         } catch (SQLException e) {
