@@ -16,12 +16,33 @@
 
 <div class="container">
 
+  <!-- Static navbar -->
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Agroprom</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="">Товары</a></li>
+        <li><a href="">Продавцы</a></li>
+        <li><a href="">Производители</a></li>
+      </ul>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="">Вход</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+<div class="container">
+
 <div class="row">
   <div class="col-md-3">
     asd
   </div>
   <div class="col-md-9">
-    asd
+    11111
   </div>
   <div class="row">
     <div class="col-md-1"></div>
