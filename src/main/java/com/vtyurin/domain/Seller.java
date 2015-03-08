@@ -1,30 +1,19 @@
 package com.vtyurin.domain;
 
-import javax.persistence.*;
-import java.sql.Timestamp;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-public class Seller {
-
-    private Long id;
+public class Seller extends BaseEntity {
 
     private String name;
     private String address;
     private String email;
-    private Timestamp dateAdded;
 
     public Seller() {
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -51,15 +40,6 @@ public class Seller {
         this.email = email;
     }
 
-    @Column(name = "DATE_ADDED")
-    public Timestamp getDateAdded() {
-        return dateAdded;
-    }
-
-    public void setDateAdded(Timestamp dateAdded) {
-        this.dateAdded = dateAdded;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,12 +47,21 @@ public class Seller {
         Seller seller = (Seller) o;
         return Objects.equals(name, seller.name) &&
                 Objects.equals(address, seller.address) &&
-                Objects.equals(email, seller.email) &&
-                Objects.equals(dateAdded, seller.dateAdded);
+                Objects.equals(email, seller.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, address, email, dateAdded);
+        return Objects.hash(name, address, email);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                "Seller {" +
+                "name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                "} ";
     }
 }

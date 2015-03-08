@@ -76,7 +76,7 @@ public class DataConfigForTest {
 
     @Bean
     public DatabasePopulator databasePopulator(DataSource dataSource) {
-        ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
+        final ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
         databasePopulator.addScript(new ClassPathResource("sql/test_database.sql"));
         try {
             databasePopulator.populate(dataSource.getConnection());

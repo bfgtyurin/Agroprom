@@ -51,4 +51,13 @@ public abstract class BaseEntity implements Serializable {
     protected void beforeUpdate() {
         this.setUpdated(new Timestamp(new Date().getTime()));
     }
+
+    @Override
+    public String toString() {
+        return "BaseEntity {" +
+                "id=" + id +
+                ", created=" + created +
+                ", updated=" + updated +
+                "} ";
+    }
 }
