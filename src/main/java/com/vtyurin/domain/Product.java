@@ -1,55 +1,36 @@
 package com.vtyurin.domain;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
-public class Product {
+public class Product extends BaseEntity {
 
-    private Long id;
-    private String label;
-    private String form;
-    private String pack;
+    private String name;
     private BigDecimal price;
-    private Date dateAdded;
-//    private Set<ProductManufacturerRelationship> relationships = new HashSet<>();
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private Set<CategoryProductRelationship> categoryProductRelationship = new HashSet<>();
 
     public Product() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() {
-        return id;
+    public Product(String name, BigDecimal price) {
+        this.name = name;
+        this.price = price;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getName() {
+        return name;
     }
 
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public String getForm() {
-        return form;
-    }
-
-    public void setForm(String form) {
-        this.form = form;
-    }
-
-    public String getPack() {
-        return pack;
-    }
-
-    public void setPack(String pack) {
-        this.pack = pack;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public BigDecimal getPrice() {
@@ -60,21 +41,28 @@ public class Product {
         this.price = price;
     }
 
-    @Column(name = "DATE_ADDED")
-    public Date getDateAdded() {
-        return dateAdded;
+    public Set<CategoryProductRelationship> getCategoryProductRelationship() {
+        return categoryProductRelationship;
     }
 
-    public void setDateAdded(Date dateAdded) {
-        this.dateAdded = dateAdded;
+    public void setCategoryProductRelationship(Set<CategoryProductRelationship> categoryProductRelationship) {
+        this.categoryProductRelationship = categoryProductRelationship;
     }
 
-//    @OneToMany(mappedBy = "", cascade = CascadeType.ALL)
-//    public Set<ProductManufacturerRelationship> getRelationships() {
-//        return relationships;
-//    }
-//
-//    public void setRelationships(Set<ProductManufacturerRelationship> relationships) {
-//        this.relationships = relationships;
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(name, product.name) &&
+                Objects.equals(price, product.price) &&
+                Objects.equals(getCreated(), product.getCreated()) &&
+                Objects.equals(getUpdated(), product.getUpdated()) &&
+                Objects.equals(categoryProductRelationship, product.categoryProductRelationship);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, price, getCreated(), getUpdated(), categoryProductRelationship);
+    }
 }

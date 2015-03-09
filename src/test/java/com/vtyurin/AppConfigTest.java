@@ -4,6 +4,8 @@ import com.vtyurin.config.AppConfig;
 import com.vtyurin.config.DataConfigForTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -17,6 +19,7 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class, DataConfigForTest.class})
 public class AppConfigTest {
+    private static final Logger logger = LoggerFactory.getLogger(AppConfigTest.class);
 
     @Inject
     ApplicationContext context;
@@ -28,5 +31,14 @@ public class AppConfigTest {
     public void springContext() {
         assertNotNull(context);
         assertNotNull(entityManager);
+    }
+
+    @Test
+    public void listApplicationContextBeans() {
+        String[] list = context.getBeanDefinitionNames();
+        for (String bean : list) {
+            logger.info("Bean '{}'", bean);
+        }
+
     }
 }

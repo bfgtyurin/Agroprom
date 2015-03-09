@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.vtyurin.agroprom</groupId>
-    <artifactId>Agroprom</artifactId>
+    <artifactId>agroprom</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>Agroprom</name>
+    <name>agroprom</name>
 
     <dependencies>
         <dependency>
@@ -13,11 +13,6 @@
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate-core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -43,6 +38,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data-jpa.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -81,43 +81,17 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
-        </dependency>
-
-        <!-- Embedded Tomcat stuff -->
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-core</artifactId>
-            <version>${tomcat.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-logging-juli</artifactId>
-            <version>${tomcat.version}</version>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-            <version>${tomcat.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jasper</artifactId>
-            <version>${tomcat.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jasper-el</artifactId>
-            <version>${tomcat.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-el-api</artifactId>
-            <version>${tomcat.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jsp-api</artifactId>
-            <version>${tomcat.version}</version>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.7</version>
         </dependency>
 
     </dependencies>
@@ -133,35 +107,9 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
                     <outputDirectory>${env.CATALINA_HOME}/webapps</outputDirectory>
-                </configuration>
-            </plugin><plugin>
-                <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
-                <version>1.4.12</version>
-                <configuration>
-                    <container>
-                        <containerId>tomcat8x</containerId>
-                        <home>${env.CATALINA_HOME}</home>
-                    </container>
-                    <configuration>
-                        <type>existing</type>
-                        <home>${env.CATALINA_HOME}</home>
-                    </configuration>
-                    <deployables>
-                        <deployable>
-                            <groupId>com.vtyurin</groupId>
-                            <artifactId>Agroprom</artifactId>
-                            <type>war</type>
-
-                            <properties>
-                                <context>${project.build.finalName}</context>
-                            </properties>
-                        </deployable>
-                    </deployables>
-                    <deployer>
-                        <type>installed</type>
-                    </deployer>
+                    <resourceEncoding>${project.build.sourceEncoding}</resourceEncoding>
                 </configuration>
             </plugin>
         </plugins>
@@ -173,6 +121,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <hibernate-core.version>4.3.8.Final</hibernate-core.version>
         <spring.version>4.1.4.RELEASE</spring.version>
+        <spring-data-jpa.version>1.7.2.RELEASE</spring-data-jpa.version>
         <spring-boot.version>1.2.1.RELEASE</spring-boot.version>
         <hsqldb.version>2.3.2</hsqldb.version>
         <junit.version>4.12</junit.version>
