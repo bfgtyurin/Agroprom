@@ -29,24 +29,6 @@ public class Category extends BaseEntity {
         this.parentId = parentId;
     }
 
-//    public Category(String name, Category parent) {
-//        this.name = name;
-//        if (parent == null) {
-//            this.parent = new NullCategory();
-//        } else {
-//            this.parent = parent;
-//
-//        }
-//    }
-
-//    private class NullCategory extends Category {
-//
-//        public NullCategory() {
-//            this.setId((long) 0);
-//            this.setParent(null);
-//        }
-//    }
-
     public String getName() {
         return name;
     }

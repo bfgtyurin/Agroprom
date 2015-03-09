@@ -4,7 +4,7 @@ import com.vtyurin.domain.Product;
 
 import java.util.List;
 
-public interface ItemService {
+public interface ProductService {
 
     List<Product> findAll();
 }

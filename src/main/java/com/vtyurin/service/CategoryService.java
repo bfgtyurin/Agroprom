@@ -1,48 +1,26 @@
 package com.vtyurin.service;
 
-import com.vtyurin.dao.CategoryDao;
 import com.vtyurin.domain.Category;
-import com.vtyurin.domain.CategoryProductRelationship;
 import com.vtyurin.domain.Product;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-@Component
-@Transactional
-public class CategoryService {
+public interface CategoryService {
 
-    @Inject
-    private CategoryDao categoryDao;
+    Category create(Category category);
 
-    public Category findOne(Long id) {
-        return categoryDao.findOne(id);
-    }
+    Category update(Category category);
 
-    public void save(Category category) {
-        categoryDao.save(category);
-    }
+    Category findById(Long id);
 
-    public Category update(Category category) {
-        return categoryDao.update(category);
-    }
+    List<Category> findAll();
 
-    public Set<Product> getItemsById(Long id) {
-        Category category = categoryDao.findOne(id);
-        Set<CategoryProductRelationship> relationships = category.getCategoryProductRelationship();
-        Set<Product> products = new HashSet<>();
-        for (CategoryProductRelationship relationship : relationships) {
-            products.add(relationship.getProduct());
-        }
+    List<Product> findProductsById(Long id);
 
-        return products;
-    }
+    List<Category> findNestedCategoriesById(Long id);
 
-    public List<Category> findNestedCategoriesById(Long id) {
-        return categoryDao.findNestedCategoriesById(id);
-    }
+    void delete(Category category);
+
+    void delete(Long id);
+
 }

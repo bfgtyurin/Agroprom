@@ -1,4 +1,4 @@
-package com.vtyurin.service.internal;
+package com.vtyurin.service;
 
 import com.vtyurin.config.AppConfig;
 import com.vtyurin.config.DataConfigForTest;
