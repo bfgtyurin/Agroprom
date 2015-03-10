@@ -4,24 +4,20 @@ import com.vtyurin.config.AppConfig;
 import com.vtyurin.config.DataConfigForTest;
 import com.vtyurin.domain.Category;
 import com.vtyurin.domain.Product;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class, DataConfigForTest.class})
-public class OldCategoryServiceTest {
+public class DefaultCategoryServiceTest {
 
     @Inject
     CategoryService service;
@@ -54,8 +50,8 @@ public class OldCategoryServiceTest {
         Long id = 1002L;
         Category category = service.findById(id);
         String oldName = category.getName();
-        Timestamp oldCreated = category.getCreated();
-        Timestamp oldUpdated = category.getUpdated();
+        LocalDateTime oldCreated = category.getCreated();
+        LocalDateTime oldUpdated = category.getUpdated();
         category.setName("Dummy From Test");
         service.update(category);
 
@@ -72,7 +68,6 @@ public class OldCategoryServiceTest {
         assertEquals(sizeOfDummyItemsInTestCategory, itemsById.size());
     }
 
-    @Ignore
     @Test
     public void testFindNestedCategoriesById() throws Exception {
         Long topLevelCategory = 0L;

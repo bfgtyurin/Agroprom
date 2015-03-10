@@ -21,11 +21,6 @@ public class DefaultProductService implements ProductService {
 
     @Override
     public List<Product> findAll() {
-        List<Product> all = productRepository.findAll();
-        for (Product product : all) {
-            logger.info(product.getName());
-
-        }
-        return all;
+        return productRepository.findAll();
     }
 }

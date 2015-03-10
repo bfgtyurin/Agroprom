@@ -33,26 +33,30 @@
         </ul>
       </div><!--/.nav-collapse -->
     </div>
+  </nav>
 </div>
 
 <div class="container">
 
 <div class="row">
   <div class="col-md-3">
-    asd
+
   </div>
   <div class="col-md-9">
-    11111
+
   </div>
   <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">
       <div class="row">
+        <h3>Последние продукты:</h3>
+      </div>
+      <div class="row">
         <c:forEach var="product" items="${products}">
           <div class="col-md-4">
-            <h1>${product.name}</h1><br>
-            <h3>${product.price}</h3><br>
-            <p>${product.created}</p>
+            <h3>${product.name}</h3><br>
+            <h5>Цена: ${product.price}</h5><br>
+            <p>Дата добавления: ${product.created}</p>
           </div>
         </c:forEach>
       </div>

@@ -34,7 +34,7 @@ public class DefaultCategoryService implements CategoryService {
 
     @Override
     public Category update(Category category) {
-        return categoryRepository.save(category);
+        return categoryRepository.saveAndFlush(category);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class DefaultCategoryService implements CategoryService {
 
     @Override
     public List<Category> findNestedCategoriesById(Long id) {
-        return null;
+        return categoryRepository.findByParentId(id);
     }
 
     @Override

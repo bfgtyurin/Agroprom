@@ -6,8 +6,8 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@NamedQueries(
-        @NamedQuery(name = "Category.findByParentId", query = "SELECT c from Category c where c.parentId = :id"))
+//@NamedQueries(
+//        @NamedQuery(name = "Category.findByParentId", query = "SELECT c from Category c where c.parentId = :id"))
 public class Category extends BaseEntity {
 
     private String name;
@@ -52,13 +52,6 @@ public class Category extends BaseEntity {
     public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
-    //    public Category getParent() {
-//        return parent;
-//    }
-//
-//    public void setParent(Category parent) {
-//        this.parent = parent;
-//    }
 
     public Set<CategoryProductRelationship> getCategoryProductRelationship() {
         return categoryProductRelationship;
