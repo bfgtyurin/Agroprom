@@ -7,6 +7,28 @@
     <version>1.0-SNAPSHOT</version>
     <name>agroprom</name>
 
+    <properties>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <hibernate.version>4.3.8.Final</hibernate.version>
+        <spring.version>4.1.4.RELEASE</spring.version>
+        <spring-data-jpa.version>1.7.2.RELEASE</spring-data-jpa.version>
+        <spring-boot.version>1.2.1.RELEASE</spring-boot.version>
+        <jadira-usertype.version>3.2.0.GA</jadira-usertype.version>
+        <hsqldb.version>2.3.2</hsqldb.version>
+
+        <junit.version>4.12</junit.version>
+        <mockito.version>1.10.19</mockito.version>
+        <slf4j.version>1.7.10</slf4j.version>
+
+        <jstl.version>1.2</jstl.version>
+        <tomcat.version>8.0.20</tomcat.version>
+        <env.CATALINA_HOME>/usr/local/Cellar/tomcat/8.0.20/libexec/</env.CATALINA_HOME>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -15,9 +37,15 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.8.Final</version>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -67,7 +95,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.10</version>
+            <version>${slf4j.version}</version>
         </dependency>
 
         <!-- Java EE -->
@@ -86,17 +114,17 @@
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <version>${jstl.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jadira.usertype</groupId>
             <artifactId>usertype.core</artifactId>
-            <version>3.2.0.GA</version>
+            <version>${jadira-usertype.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jadira.usertype</groupId>
             <artifactId>usertype.extended</artifactId>
-            <version>3.2.0.GA</version>
+            <version>${jadira-usertype.version}</version>
         </dependency>
 
     </dependencies>
@@ -119,18 +147,4 @@
             </plugin>
         </plugins>
     </build>
-    <properties>
-        <java.version>1.8</java.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <hibernate-core.version>4.3.8.Final</hibernate-core.version>
-        <spring.version>4.1.4.RELEASE</spring.version>
-        <spring-data-jpa.version>1.7.2.RELEASE</spring-data-jpa.version>
-        <spring-boot.version>1.2.1.RELEASE</spring-boot.version>
-        <hsqldb.version>2.3.2</hsqldb.version>
-        <junit.version>4.12</junit.version>
-        <tomcat.version>8.0.20</tomcat.version>
-        <env.CATALINA_HOME>/usr/local/Cellar/tomcat/8.0.20/libexec/</env.CATALINA_HOME>
-    </properties>
 </project>

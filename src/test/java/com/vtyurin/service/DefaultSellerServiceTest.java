@@ -1,32 +1,92 @@
 package com.vtyurin.service;
 
-import com.vtyurin.config.AppConfig;
-import com.vtyurin.config.DataConfigForTest;
 import com.vtyurin.domain.Seller;
-import com.vtyurin.service.SellerService;
+import com.vtyurin.repository.SellerRepository;
+import com.vtyurin.service.internal.DefaultSellerService;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import javax.inject.Inject;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {AppConfig.class, DataConfigForTest.class})
+@RunWith(MockitoJUnitRunner.class)
 public class DefaultSellerServiceTest {
 
-    @Inject
-    SellerService sellerService;
+    public static final Long ID = 1000L;
+    public static final String NAME = "Dummy Seller";
+    public static final String ADDRESS = "dummy country, dummy city, dummy street";
+    public static final String EMAIL = "dummy@dummymail.com";
+    public static final LocalDateTime CREATED = LocalDateTime.now();
+    public static final LocalDateTime UPDATED = LocalDateTime.now();
+
+    @Mock
+    SellerRepository sellerRepositoryMock;
+
+    @InjectMocks
+    DefaultSellerService sellerService;
+
+    private Seller modelObject;
+
+    @Before
+    public void setUp() {
+        modelObject = new Seller();
+        modelObject.setId(ID);
+        modelObject.setName(NAME);
+        modelObject.setEmail(EMAIL);
+        modelObject.setAddress(ADDRESS);
+        modelObject.setCreated(CREATED);
+        modelObject.setUpdated(UPDATED);
+    }
 
     @Test
-    public void testCreate() throws Exception {
-        Seller seller = new Seller();
-        seller.setName("Dummy Test");
-        seller.setEmail("dummytest@testmail.com");
-        seller.setAddress("Dummy Street Dummy Country");
-        seller = sellerService.create(seller);
-        assertNotNull(seller.getId());
+    public void create() throws Exception {
+        when(sellerRepositoryMock.save(any(Seller.class))).thenReturn(modelObject);
+
+        Seller created = new Seller();
+        created.setName(NAME);
+        created.setEmail(EMAIL);
+        created.setAddress(ADDRESS);
+        created.setCreated(CREATED);
+        created.setUpdated(UPDATED);
+
+        Seller returned = sellerService.create(created);
+        verify(sellerRepositoryMock, times(1)).save(created);
+        verifyNoMoreInteractions(sellerRepositoryMock);
+        assertNotNull(returned.getId());
+        assertEquals(returned, modelObject);
+    }
+
+    @Test
+    public void findById() {
+        when(sellerRepositoryMock.findOne(ID)).thenReturn(modelObject);
+        Seller returned = sellerService.findById(ID);
+
+        verify(sellerRepositoryMock, times(1)).findOne(ID);
+        verifyNoMoreInteractions(sellerRepositoryMock);
+
+        assertEquals(modelObject, returned);
+    }
+
+    @Test
+    public void findAll() {
+        List<Seller> sellers = new ArrayList<>();
+        when(sellerRepositoryMock.findAll()).thenReturn(sellers);
+
+        List<Seller> returned = sellerService.findAll();
+
+        verify(sellerRepositoryMock, times(1)).findAll();
+        verifyNoMoreInteractions(sellerRepositoryMock);
+
+        assertEquals(sellers, returned);
     }
 }

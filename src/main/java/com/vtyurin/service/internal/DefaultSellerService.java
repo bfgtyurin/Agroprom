@@ -22,10 +22,7 @@ public class DefaultSellerService implements SellerService {
 
     @Override
     public Seller create(Seller seller) {
-        logger.debug("creating {}", seller);
-        Seller created = sellerRepository.save(seller);
-        logger.debug("created {}", created);
-        return created;
+        return sellerRepository.save(seller);
     }
 
     @Override
