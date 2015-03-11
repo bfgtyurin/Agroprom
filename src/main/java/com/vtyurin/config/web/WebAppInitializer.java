@@ -25,21 +25,25 @@ public class WebAppInitializer implements WebApplicationInitializer {
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
         rootContext.register(AppConfig.class);
         rootContext.getEnvironment().addActiveProfile(DbConfigProfile.HSQL_EMBEDDED);
-        rootContext.refresh();
+
+        configureDispatcherServlet(servletContext, rootContext);
+        configureCharacterEncodingFilter(servletContext);
+
         servletContext.addListener(new ContextLoaderListener(rootContext));
+        logger.info("WebAppInitializer was load");
+    }
 
-        FilterRegistration.Dynamic fr = servletContext.addFilter("encodingFilter",
-                new CharacterEncodingFilter());
-        fr.setInitParameter("encoding", "UTF-8");
-        fr.setInitParameter("forceEncoding", "true");
-        fr.addMappingForUrlPatterns(null, true, "/*");
-
-        AnnotationConfigWebApplicationContext mvcContext = new AnnotationConfigWebApplicationContext();
-        mvcContext.register(WebConfig.class);
-        ServletRegistration.Dynamic dispatcher = servletContext.addServlet(
-                "dispatcher", new DispatcherServlet(mvcContext));
+    private void configureDispatcherServlet(ServletContext servletContext, AnnotationConfigWebApplicationContext rootContext) {
+        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(rootContext));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
-        logger.info("WebAppInitializer was load");
+    }
+
+    private void configureCharacterEncodingFilter(ServletContext servletContext) {
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+        characterEncodingFilter.setEncoding("UTF-8");
+        characterEncodingFilter.setForceEncoding(true);
+        FilterRegistration.Dynamic characterEncoding = servletContext.addFilter("characterEncoding", characterEncodingFilter);
+        characterEncoding.addMappingForServletNames(null, true, "/*");
     }
 }

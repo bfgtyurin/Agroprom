@@ -4,7 +4,7 @@
 <html>
 <head>
   <title></title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <!-- Latest compiled and minified CSS -->
@@ -32,39 +32,41 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="">Вход</a></li>
         </ul>
-      </div><!--/.nav-collapse -->
+      </div>
+      <!--/.nav-collapse -->
     </div>
   </nav>
 </div>
 
 <div class="container">
 
-<div class="row">
-  <div class="col-md-3">
-
-  </div>
-  <div class="col-md-9">
-
-  </div>
   <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-10">
-      <div class="row">
-        <h3>Последние продукты:</h3>
-      </div>
-      <div class="row">
-        <c:forEach var="product" items="${products}">
-          <div class="col-md-4">
-            <h3>${product.name}</h3><br>
-            <h5>Цена: ${product.price}</h5><br>
-            <p>Дата добавления: ${product.created}</p>
-          </div>
-        </c:forEach>
-      </div>
+    <div class="col-md-3">
+
     </div>
-    <div class="col-md-1"></div>
+    <div class="col-md-9">
+
+    </div>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <div class="row">
+          <h3>Последние продукты:</h3>
+        </div>
+        <div class="row">
+          <c:forEach var="product" items="${products}">
+            <div class="col-md-4">
+              <h3>${product.name}</h3><br>
+              <h5>Цена: ${product.price}</h5><br>
+
+              <p>Дата добавления: ${product.created}</p>
+            </div>
+          </c:forEach>
+        </div>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
   </div>
-</div>
 
 </div>
 

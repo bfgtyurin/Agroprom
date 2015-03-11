@@ -17,8 +17,8 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackageClasses = ControllerMarker.class)
-public class WebConfig extends WebMvcConfigurerAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(WebConfig.class);
+public class WebMvcConfig extends WebMvcConfigurerAdapter {
+    private static final Logger logger = LoggerFactory.getLogger(WebMvcConfig.class);
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
