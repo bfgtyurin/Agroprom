@@ -3,6 +3,7 @@ package com.vtyurin.service;
 import com.vtyurin.domain.Seller;
 import com.vtyurin.repository.SellerRepository;
 import com.vtyurin.service.internal.DefaultSellerService;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,8 +27,8 @@ public class DefaultSellerServiceTest {
     public static final String NAME = "Dummy Seller";
     public static final String ADDRESS = "dummy country, dummy city, dummy street";
     public static final String EMAIL = "dummy@dummymail.com";
-    public static final LocalDateTime CREATED = LocalDateTime.now();
-    public static final LocalDateTime UPDATED = LocalDateTime.now();
+    public static final DateTime CREATED = DateTime.now();
+    public static final DateTime UPDATED = DateTime.now();
 
     @Mock
     SellerRepository sellerRepositoryMock;

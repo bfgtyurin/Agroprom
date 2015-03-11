@@ -1,4 +1,4 @@
-package com.vtyurin.config;
+package com.vtyurin.config.web;
 
 import com.vtyurin.controller.ControllerMarker;
 import org.slf4j.Logger;

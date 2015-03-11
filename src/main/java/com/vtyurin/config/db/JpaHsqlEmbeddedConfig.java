@@ -1,9 +1,10 @@
-package com.vtyurin.config;
+package com.vtyurin.config.db;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
@@ -15,7 +16,6 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -23,10 +23,10 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 @Configuration
-@EnableTransactionManagement
+@Profile(DbConfigProfile.HSQL_EMBEDDED)
 @PropertySource(value = {"classpath:persistence-hsqldb.properties", "classpath:db-defaults.properties"})
-public class DataConfigForTest {
-    private static final Logger logger = LoggerFactory.getLogger(DataConfigForTest.class);
+public class JpaHsqlEmbeddedConfig {
+    private static final Logger logger = LoggerFactory.getLogger(JpaHsqlEmbeddedConfig.class);
 
     @Inject
     private Environment env;

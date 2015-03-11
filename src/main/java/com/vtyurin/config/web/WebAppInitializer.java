@@ -1,6 +1,8 @@
-package com.vtyurin.config;
+package com.vtyurin.config.web;
 
 
+import com.vtyurin.config.AppConfig;
+import com.vtyurin.config.db.DbConfigProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.WebApplicationInitializer;
@@ -22,7 +24,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
         logger.info("Trying load WebAppInitializer");
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
         rootContext.register(AppConfig.class);
-        rootContext.register(DataConfigForTest.class);
+        rootContext.getEnvironment().addActiveProfile(DbConfigProfile.HSQL_EMBEDDED);
         rootContext.refresh();
         servletContext.addListener(new ContextLoaderListener(rootContext));
 

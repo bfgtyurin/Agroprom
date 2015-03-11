@@ -2,6 +2,9 @@ package com.vtyurin.controller;
 
 import com.vtyurin.domain.Product;
 import com.vtyurin.service.ProductService;
+import org.slf4j.ILoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +15,7 @@ import java.util.List;
 
 @Controller
 public class HomeController {
+    Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     @Inject
     ProductService productService;

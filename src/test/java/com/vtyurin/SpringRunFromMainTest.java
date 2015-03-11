@@ -1,7 +1,8 @@
 package com.vtyurin;
 
 import com.vtyurin.config.AppConfig;
-import com.vtyurin.config.DataConfigForTest;
+import com.vtyurin.config.db.DbConfigProfile;
+import com.vtyurin.config.db.JpaHsqlEmbeddedConfig;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,7 @@ public class SpringRunFromMainTest {
     public void runContextTest() {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
         ctx.register(AppConfig.class);
-        ctx.register(DataConfigForTest.class);
+        ctx.getEnvironment().addActiveProfile(DbConfigProfile.HSQL_EMBEDDED);
         ctx.refresh();
 
         assertNotNull(ctx.getBean("entityManagerFactory"));

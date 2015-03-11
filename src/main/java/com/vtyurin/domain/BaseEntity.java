@@ -1,6 +1,7 @@
 package com.vtyurin.domain;
 
 import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -16,11 +17,11 @@ public abstract class BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-    private LocalDateTime created;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime created;
 
-    @Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-    private LocalDateTime updated;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime updated;
 
     public Long getId() {
         return id;
@@ -30,30 +31,30 @@ public abstract class BaseEntity implements Serializable {
         this.id = id;
     }
 
-    public LocalDateTime getCreated() {
+    public DateTime getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public void setCreated(DateTime created) {
         this.created = created;
     }
 
-    public LocalDateTime getUpdated() {
+    public DateTime getUpdated() {
         return updated;
     }
 
-    public void setUpdated(LocalDateTime updated) {
+    public void setUpdated(DateTime updated) {
         this.updated = updated;
     }
 
     @PrePersist
     protected void beforePersist() {
-        this.setCreated(LocalDateTime.now());
+        this.setCreated(DateTime.now());
     }
 
     @PreUpdate
     protected void beforeUpdate() {
-        this.setUpdated(LocalDateTime.now());
+        this.setUpdated(DateTime.now());
     }
 
     @Override

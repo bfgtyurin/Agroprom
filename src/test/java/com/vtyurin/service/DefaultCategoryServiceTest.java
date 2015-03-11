@@ -1,22 +1,25 @@
 package com.vtyurin.service;
 
 import com.vtyurin.config.AppConfig;
-import com.vtyurin.config.DataConfigForTest;
+import com.vtyurin.config.db.DbConfigProfile;
+import com.vtyurin.config.db.JpaHsqlEmbeddedConfig;
 import com.vtyurin.domain.Category;
 import com.vtyurin.domain.Product;
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {AppConfig.class, DataConfigForTest.class})
+@ContextConfiguration(classes = AppConfig.class)
+@ActiveProfiles(DbConfigProfile.HSQL_EMBEDDED)
 public class DefaultCategoryServiceTest {
 
     @Inject
@@ -50,8 +53,8 @@ public class DefaultCategoryServiceTest {
         Long id = 1002L;
         Category category = service.findById(id);
         String oldName = category.getName();
-        LocalDateTime oldCreated = category.getCreated();
-        LocalDateTime oldUpdated = category.getUpdated();
+        DateTime oldCreated = category.getCreated();
+        DateTime oldUpdated = category.getUpdated();
         category.setName("Dummy From Test");
         service.update(category);
 

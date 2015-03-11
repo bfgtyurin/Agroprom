@@ -5,9 +5,11 @@ import com.vtyurin.service.ServiceMarker;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@ComponentScan(basePackageClasses = {ServiceMarker.class})
+@EnableTransactionManagement
+@ComponentScan(basePackageClasses = {ServiceMarker.class}, value = "com.vtyurin.config.db")
 @EnableJpaRepositories(basePackageClasses = RepositoryMarker.class)
 public class AppConfig {
 }
