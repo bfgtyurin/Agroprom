@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <category id="1001" name="Ветеринария"
+              created="2015-03-12 12:22:33" updated="2015-03-12 12:22:33" version="1"/>
+    <category id="1002" name="Антибактериальные препараты" parent_id="1001"
+              created="2015-03-12 12:22:33" updated="2015-03-12 12:22:33" version="1"/>
+
+    <category id="1003" name="Корма и кормовые добавки"
+              created="2015-03-12 12:22:33" updated="2015-03-12 12:22:33" version="1"/>
+    <category id="1004" name="Антиоксиданты" parent_id="1003"
+              created="2015-03-12 12:22:33" updated="2015-03-12 12:22:33" version="1"/>
+</dataset>

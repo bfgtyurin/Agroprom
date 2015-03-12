@@ -21,6 +21,9 @@ public abstract class BaseEntity implements Serializable {
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updated;
 
+    @Version
+    private long version;
+
     public Long getId() {
         return id;
     }
@@ -45,9 +48,19 @@ public abstract class BaseEntity implements Serializable {
         this.updated = updated;
     }
 
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
+    }
+
     @PrePersist
-    protected void beforePersist() {
-        this.setCreated(DateTime.now());
+    protected void prePersist() {
+        DateTime now = DateTime.now();
+        this.setCreated(now);
+        this.setUpdated(now);
     }
 
     @PreUpdate

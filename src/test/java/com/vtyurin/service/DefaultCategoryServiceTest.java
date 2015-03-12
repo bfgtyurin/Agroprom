@@ -1,90 +1,86 @@
 package com.vtyurin.service;
 
-import com.vtyurin.config.AppConfig;
-import com.vtyurin.config.db.DbConfigProfile;
 import com.vtyurin.domain.Category;
+import com.vtyurin.domain.CategoryBuilder;
 import com.vtyurin.domain.Product;
+import com.vtyurin.repository.CategoryRepository;
+import com.vtyurin.service.internal.DefaultCategoryService;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = AppConfig.class)
-@WebAppConfiguration
-@ActiveProfiles(DbConfigProfile.HSQL_EMBEDDED)
+@RunWith(MockitoJUnitRunner.class)
 public class DefaultCategoryServiceTest {
+    public static final String NAME = "Dummy Category";
+    private static final Long ID = 1000L;
+    private static final Category PARENT = null;
+    private static final Set<Product> PRODUCTS = new HashSet<>();
+    private static final DateTime TIME_NOW = DateTime.now();
 
-    @Inject
-    CategoryService service;
+    @Mock
+    CategoryRepository repositoryMock;
+
+    @InjectMocks
+    DefaultCategoryService categoryService;
 
     @Test
     public void findById() throws Exception {
-        Long id = 1001L;
-        service.findById(id);
-        assertNotNull(id);
+        Category model = new CategoryBuilder()
+                .id(ID)
+                .name(NAME)
+                .parentId(PARENT)
+                .products(PRODUCTS)
+                .created(TIME_NOW)
+                .updated(TIME_NOW)
+                .build();
+        when(repositoryMock.findOne(ID)).thenReturn(model);
+
+        Category found = categoryService.findById(ID);
+        verify(repositoryMock, times(1)).findOne(ID);
+        verifyNoMoreInteractions(repositoryMock);
+
+        assertEquals(model, found);
     }
 
     @Test
-    public void testSaveOneTopLevel() throws Exception {
-        Category category = new Category("Dummy Top Category");
-        service.create(category);
-        assertNotNull(category.getId());
+    public void findAll() {
+        List<Category> expected = new ArrayList<>();
+        when(repositoryMock.findAll()).thenReturn(expected);
+
+        List<Category> found = categoryService.findAll();
+        verify(repositoryMock, times(1)).findAll();
+        verifyNoMoreInteractions(repositoryMock);
+
+        assertEquals(expected, found);
     }
 
     @Test
-    public void testSaveOneWithParent() throws Exception {
-        Category parent = service.findById(1001L);
-        Category category = new Category("Dummy Child Category", parent.getId());
-        service.create(category);
-        assertNotNull(category.getId());
-        assertEquals(service.findById(category.getId()).getParentId(), parent.getId());
-    }
+    public void findProductsById() {
+        Category model = new CategoryBuilder()
+                .id(ID)
+                .name(NAME)
+                .parentId(PARENT)
+                .products(PRODUCTS)
+                .created(TIME_NOW)
+                .updated(TIME_NOW)
+                .build();
+        when(repositoryMock.findOne(ID)).thenReturn(model);
 
-    @Test
-    public void testUpdate() {
-        Long id = 1002L;
-        Category category = service.findById(id);
-        String oldName = category.getName();
-        DateTime oldCreated = category.getCreated();
-        DateTime oldUpdated = category.getUpdated();
-        category.setName("Dummy From Test");
-        service.update(category);
+        Set<Product> products = categoryService.findProductsById(ID);
+        verify(repositoryMock, times(1)).findOne(ID);
+        verifyNoMoreInteractions(repositoryMock);
 
-        category = service.findById(id);
-        assertNotEquals(oldName, category.getName());
-        assertEquals(oldCreated, category.getCreated());
-        assertNotEquals(oldUpdated, category.getUpdated());
-    }
-
-    @Test
-    public void testGetItemsById() {
-        List<Product> itemsById = service.findProductsById((long) 1002);
-        int sizeOfDummyItemsInTestCategory = 5;
-        assertEquals(sizeOfDummyItemsInTestCategory, itemsById.size());
-    }
-
-    @Test
-    public void testFindNestedCategoriesById() throws Exception {
-        Long topLevelCategory = 0L;
-        List<Category> topLevelCategories = service.findNestedCategoriesById(topLevelCategory);
-        for (Category category : topLevelCategories) {
-            assertEquals(topLevelCategory, category.getParentId());
-        }
-
-        Long nestedCategoryId = 1001L;
-        List<Category> nestedCategories = service.findNestedCategoriesById(nestedCategoryId);
-        for (Category category : nestedCategories) {
-            Long id = category.getParentId();
-            assertEquals(nestedCategoryId, id);
-        }
+        assertEquals(PRODUCTS, products);
     }
 }

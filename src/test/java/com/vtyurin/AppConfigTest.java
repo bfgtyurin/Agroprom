@@ -20,7 +20,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
-@ActiveProfiles(DbConfigProfile.HSQL_EMBEDDED)
+@ActiveProfiles(DbConfigProfile.H2_MEM)
 @WebAppConfiguration
 public class AppConfigTest {
     private static final Logger logger = LoggerFactory.getLogger(AppConfigTest.class);

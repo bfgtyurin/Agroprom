@@ -4,6 +4,7 @@ import com.vtyurin.domain.Category;
 import com.vtyurin.domain.Product;
 
 import java.util.List;
+import java.util.Set;
 
 public interface CategoryService {
 
@@ -15,7 +16,7 @@ public interface CategoryService {
 
     List<Category> findAll();
 
-    List<Product> findProductsById(Long id);
+    Set<Product> findProductsById(Long id);
 
     List<Category> findNestedCategoriesById(Long id);
 

@@ -1,67 +1,54 @@
 package com.vtyurin.domain;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-//@NamedQueries(
-//        @NamedQuery(name = "Category.findByParentId", query = "SELECT c from Category c where c.parentId = :id"))
 public class Category extends BaseEntity {
 
     private String name;
-    private String description;
-    @Column(name = "PARENT_ID")
-    private Long parentId;
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private Set<CategoryProductRelationship> categoryProductRelationship = new HashSet<>();
 
-    public Category() {
+    @ManyToOne
+    private Category parent;
+
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+    private Set<Category> nestedCategories;
+
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    private Set<Product> products;
+
+    protected Category() {
     }
 
-    public Category(String name) {
-        this(name, 0);
+    private Category(Builder builder) {
+        this.name = builder.name;
+        this.parent = builder.parent;
+        this.nestedCategories = builder.nestedCategories;
+        this.products = builder.products;
     }
 
-    public Category(String name, long parentId) {
-        this.name = name;
-        this.parentId = parentId;
+    static Builder getBuilder() {
+        return new Builder();
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Category getParent() {
+        return parent;
     }
 
-    public String getDescription() {
-        return description;
+    public Set<Product> getProducts() {
+        return products;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
-
-    public Set<CategoryProductRelationship> getCategoryProductRelationship() {
-        return categoryProductRelationship;
-    }
-
-    public void setCategoryProductRelationship(Set<CategoryProductRelationship> categoryProductRelationship) {
-        this.categoryProductRelationship = categoryProductRelationship;
+    public Set<Category> getNestedCategories() {
+        return nestedCategories;
     }
 
     @Override
@@ -70,13 +57,42 @@ public class Category extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         Category category = (Category) o;
         return Objects.equals(name, category.name) &&
-                Objects.equals(description, category.description) &&
-                Objects.equals(categoryProductRelationship, category.categoryProductRelationship) &&
-                Objects.equals(parentId, category.parentId);
+                Objects.equals(parent, category.parent);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, parentId, categoryProductRelationship);
+        return Objects.hash(name, parent);
+    }
+
+    static class Builder {
+        private String name;
+        private Category parent;
+        private Set<Category> nestedCategories;
+        private Set<Product> products;
+
+        Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        Builder parent(Category parentId) {
+            this.parent = parentId;
+            return this;
+        }
+
+        Builder nestedCategories(Set<Category> nestedCategories) {
+            this.nestedCategories = nestedCategories;
+            return this;
+        }
+
+        Builder products(Set<Product> products) {
+            this.products = products;
+            return this;
+        }
+
+        Category build() {
+            return new Category(this);
+        }
     }
 }

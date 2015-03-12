@@ -55,16 +55,16 @@ public class CategoryProductRelationship {
             return Objects.hash(categoryId, productId);
         }
     }
-
-    public CategoryProductRelationship(Category category, Product product, Timestamp dateAdded) {
-        this.product = product;
-        this.category = category;
-        this.getId().categoryId = category.getId();
-        this.getId().productId = product.getId();
-        // lol
-        category.getCategoryProductRelationship().add(this);
-        product.getCategoryProductRelationship().add(this);
-    }
+//
+//    public CategoryProductRelationship(Category category, Product product, Timestamp dateAdded) {
+//        this.product = product;
+//        this.category = category;
+//        this.getId().categoryId = category.getId();
+//        this.getId().productId = product.getId();
+//        // lol
+//        category.getCategoryProductRelationship().add(this);
+//        product.getCategoryProductRelationship().add(this);
+//    }
 
     public Id getId() {
         return id;

@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-    @Query("SELECT c FROM Category c WHERE c.parentId = ?1")
+    @Query("SELECT c FROM Category c WHERE c.parent = ?1")
     List<Category> findByParentId(Long id);
 }

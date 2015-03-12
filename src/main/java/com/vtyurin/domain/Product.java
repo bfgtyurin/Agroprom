@@ -1,12 +1,10 @@
 package com.vtyurin.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 public class Product extends BaseEntity {
@@ -14,8 +12,8 @@ public class Product extends BaseEntity {
     private String name;
     private BigDecimal price;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private Set<CategoryProductRelationship> categoryProductRelationship = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Category category;
 
     public Product() {
     }
@@ -41,12 +39,8 @@ public class Product extends BaseEntity {
         this.price = price;
     }
 
-    public Set<CategoryProductRelationship> getCategoryProductRelationship() {
-        return categoryProductRelationship;
-    }
-
-    public void setCategoryProductRelationship(Set<CategoryProductRelationship> categoryProductRelationship) {
-        this.categoryProductRelationship = categoryProductRelationship;
+    public Category getCategory() {
+        return category;
     }
 
     @Override
@@ -57,12 +51,11 @@ public class Product extends BaseEntity {
         return Objects.equals(name, product.name) &&
                 Objects.equals(price, product.price) &&
                 Objects.equals(getCreated(), product.getCreated()) &&
-                Objects.equals(getUpdated(), product.getUpdated()) &&
-                Objects.equals(categoryProductRelationship, product.categoryProductRelationship);
+                Objects.equals(getUpdated(), product.getUpdated());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, price, getCreated(), getUpdated(), categoryProductRelationship);
+        return Objects.hash(name, price, getCreated(), getUpdated());
     }
 }

@@ -1,10 +1,8 @@
 package com.vtyurin.service.internal;
 
 import com.vtyurin.domain.Category;
-import com.vtyurin.domain.CategoryProductRelationship;
 import com.vtyurin.domain.Product;
 import com.vtyurin.repository.CategoryRepository;
-import com.vtyurin.repository.ProductRepository;
 import com.vtyurin.service.CategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -23,9 +20,6 @@ public class DefaultCategoryService implements CategoryService {
 
     @Inject
     CategoryRepository categoryRepository;
-
-    @Inject
-    ProductRepository productRepository;
 
     @Override
     public Category create(Category category) {
@@ -48,16 +42,9 @@ public class DefaultCategoryService implements CategoryService {
     }
 
     @Override
-    public List<Product> findProductsById(Long id) {
-        Category one = categoryRepository.findOne(id);
-        List<Product> productList = new ArrayList<>();
-        Set<CategoryProductRelationship> relationships = one.getCategoryProductRelationship();
-        for (CategoryProductRelationship relationship : relationships) {
-            Product product = relationship.getProduct();
-            productList.add(product);
-        }
-
-        return productList;
+    public Set<Product> findProductsById(Long id) {
+        Category category = categoryRepository.findOne(id);
+        return category.getProducts();
     }
 
     @Override
