@@ -1,7 +1,7 @@
 package com.vtyurin.mvc;
 
 import com.vtyurin.config.AppConfig;
-import com.vtyurin.config.db.DbConfigProfile;
+import com.vtyurin.config.db.DatabaseConfigProfile;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +18,7 @@ import javax.inject.Inject;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
 @WebAppConfiguration
-@ActiveProfiles(DbConfigProfile.HSQL_EMBEDDED)
+@ActiveProfiles(DatabaseConfigProfile.HSQL_EMBEDDED)
 public class HomeControllerTest {
 
     private MockMvc mockMvc;

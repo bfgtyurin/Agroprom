@@ -1,7 +1,7 @@
 package com.vtyurin;
 
 import com.vtyurin.config.AppConfig;
-import com.vtyurin.config.db.DbConfigProfile;
+import com.vtyurin.config.db.DatabaseConfigProfile;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
-@ActiveProfiles(DbConfigProfile.H2_MEM)
+@ActiveProfiles(DatabaseConfigProfile.H2_MEM)
 @WebAppConfiguration
 public class AppConfigTest {
     private static final Logger logger = LoggerFactory.getLogger(AppConfigTest.class);

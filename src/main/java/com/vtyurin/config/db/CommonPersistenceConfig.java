@@ -2,6 +2,7 @@ package com.vtyurin.config.db;
 
 import com.vtyurin.repository.RepositoryMarker;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -18,6 +19,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackageClasses = RepositoryMarker.class)
+@ComponentScan(value = "com.vtyurin.config.db")
 public class CommonPersistenceConfig {
 
     private static final String DOMAIN_PACKAGES = "com.vtyurin.domain";

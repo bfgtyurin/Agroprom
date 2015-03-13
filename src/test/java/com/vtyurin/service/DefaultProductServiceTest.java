@@ -1,7 +1,7 @@
 package com.vtyurin.service;
 
 import com.vtyurin.config.AppConfig;
-import com.vtyurin.config.db.DbConfigProfile;
+import com.vtyurin.config.db.DatabaseConfigProfile;
 import com.vtyurin.domain.Product;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
 @WebAppConfiguration
-@ActiveProfiles(DbConfigProfile.HSQL_EMBEDDED)
+@ActiveProfiles(DatabaseConfigProfile.HSQL_EMBEDDED)
 public class DefaultProductServiceTest {
 
     @Inject

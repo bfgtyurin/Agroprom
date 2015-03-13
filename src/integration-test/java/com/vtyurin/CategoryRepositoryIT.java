@@ -5,6 +5,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.vtyurin.config.db.CommonPersistenceConfig;
 import com.vtyurin.config.db.DatabaseConfigProfile;
 import com.vtyurin.config.db.H2EmbeddedConfig;
+import com.vtyurin.config.db.HsqlEmbeddedConfig;
 import com.vtyurin.domain.Category;
 import com.vtyurin.repository.CategoryRepository;
 import org.junit.Test;
@@ -20,16 +21,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@ActiveProfiles(DatabaseConfigProfile.H2_MEM)
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class})
-@ContextConfiguration(classes = {CommonPersistenceConfig.class, H2EmbeddedConfig.class})
-@ActiveProfiles(DatabaseConfigProfile.H2_MEM)
+@ContextConfiguration(classes = {CommonPersistenceConfig.class})
 public class CategoryRepositoryIT {
     private static final Long PARENT_ID = 1001L;
     private static final Long CHILD_ID = 1002L;
@@ -50,5 +50,8 @@ public class CategoryRepositoryIT {
         assertEquals(child.getName(), CHILD_NAME);
         assertEquals(child.getParent().getName(), PARENT_NAME);
         assertTrue(parent.getNestedCategories().size() == 1);
+
+        assertNull(parent.getParent());
+        assertNotNull(child.getParent().getId());
     }
 }

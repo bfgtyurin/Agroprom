@@ -27,7 +27,7 @@ import static org.junit.Assert.assertTrue;
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class})
-@ContextConfiguration(classes = {CommonPersistenceConfig.class, H2EmbeddedConfig.class})
+@ContextConfiguration(classes = {CommonPersistenceConfig.class})
 public class ProductRepositoryTest {
 
     @Inject

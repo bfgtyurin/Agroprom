@@ -1,7 +1,7 @@
 package com.vtyurin;
 
 import com.vtyurin.config.AppConfig;
-import com.vtyurin.config.db.DbConfigProfile;
+import com.vtyurin.config.db.DatabaseConfigProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -14,7 +14,7 @@ public class SpringRunFromMainTest {
     public void runContextTest() {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
         ctx.register(AppConfig.class);
-        ctx.getEnvironment().addActiveProfile(DbConfigProfile.HSQL_EMBEDDED);
+        ctx.getEnvironment().addActiveProfile(DatabaseConfigProfile.HSQL_EMBEDDED);
         ctx.refresh();
 
         assertNotNull(ctx.getBean("entityManagerFactory"));
