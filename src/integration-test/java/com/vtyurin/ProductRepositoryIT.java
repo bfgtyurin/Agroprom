@@ -9,6 +9,8 @@ import com.vtyurin.domain.Product;
 import com.vtyurin.repository.ProductRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -28,7 +30,8 @@ import static org.junit.Assert.assertTrue;
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class})
 @ContextConfiguration(classes = {CommonPersistenceConfig.class})
-public class ProductRepositoryTest {
+public class ProductRepositoryIT {
+    private static final Logger logger = LoggerFactory.getLogger(ProductRepositoryIT.class);
 
     @Inject
     ProductRepository productRepository;

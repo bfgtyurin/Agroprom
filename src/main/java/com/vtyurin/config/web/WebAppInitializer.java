@@ -30,6 +30,9 @@ public class WebAppInitializer implements WebApplicationInitializer {
         configureCharacterEncodingFilter(servletContext);
 
         servletContext.addListener(new ContextLoaderListener(rootContext));
+
+        servletContext.setInitParameter("defaultHtmlEscape", "true");
+
         logger.info("WebAppInitializer was load");
     }
 
@@ -44,6 +47,6 @@ public class WebAppInitializer implements WebApplicationInitializer {
         characterEncodingFilter.setEncoding("UTF-8");
         characterEncodingFilter.setForceEncoding(true);
         FilterRegistration.Dynamic characterEncoding = servletContext.addFilter("characterEncoding", characterEncodingFilter);
-        characterEncoding.addMappingForServletNames(null, true, "/*");
+        characterEncoding.addMappingForUrlPatterns(null, true, "/*");
     }
 }

@@ -12,8 +12,8 @@ public class CategoryBuilder {
     private Category parent;
     private Set<Category> nestedCategories;
     private Set<Product> products;
-    private DateTime created;
-    private DateTime updated;
+    private DateTime creationTime;
+    private DateTime modificationTime;
 
     public CategoryBuilder() {
     }
@@ -39,12 +39,12 @@ public class CategoryBuilder {
     }
 
     public CategoryBuilder created(DateTime created) {
-        this.created = created;
+        this.creationTime = created;
         return this;
     }
 
     public CategoryBuilder updated(DateTime updated) {
-        this.updated = updated;
+        this.modificationTime = updated;
         return this;
     }
 
@@ -57,8 +57,8 @@ public class CategoryBuilder {
                 .build();
 
         ReflectionTestUtils.setField(category, "id", id);
-        ReflectionTestUtils.setField(category, "created", created);
-        ReflectionTestUtils.setField(category, "updated", updated);
+        ReflectionTestUtils.setField(category, "creationTime", creationTime);
+        ReflectionTestUtils.setField(category, "modificationTime", modificationTime);
 
         return category;
     }

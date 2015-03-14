@@ -44,8 +44,8 @@ public class DefaultSellerServiceTest {
         modelObject.setName(NAME);
         modelObject.setEmail(EMAIL);
         modelObject.setAddress(ADDRESS);
-        modelObject.setCreated(CREATED);
-        modelObject.setUpdated(UPDATED);
+        modelObject.setCreationTime(CREATED);
+        modelObject.setModificationTime(UPDATED);
     }
 
     @Test
@@ -56,8 +56,8 @@ public class DefaultSellerServiceTest {
         created.setName(NAME);
         created.setEmail(EMAIL);
         created.setAddress(ADDRESS);
-        created.setCreated(CREATED);
-        created.setUpdated(UPDATED);
+        created.setCreationTime(CREATED);
+        created.setModificationTime(UPDATED);
 
         Seller returned = sellerService.create(created);
         verify(sellerRepositoryMock, times(1)).save(created);

@@ -1,5 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<spring:htmlEscape defaultHtmlEscape="true" />
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -21,10 +24,10 @@
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">Agroprom</a>
+        <a class="navbar-brand" href="/agroprom/">Agroprom</a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="">Товары</a></li>
+        <li><a href="products">Товары</a></li>
         <li><a href="">Продавцы</a></li>
         <li><a href="">Производители</a></li>
       </ul>
@@ -39,33 +42,26 @@
 </div>
 
 <div class="container">
-
   <div class="row">
-    <div class="col-md-3">
-
-    </div>
-    <div class="col-md-9">
-
-    </div>
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-10">
-        <div class="row">
-          <h3>Последние продукты:</h3>
-        </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4"><h3>Последние добавленные:</h3></div>
+  </div>
+  <div class="row"></div>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
         <div class="row">
           <c:forEach var="product" items="${products}">
             <div class="col-md-4">
-              <h3>${product.name}</h3><br>
-              <h5>Цена: ${product.price}</h5><br>
-
-              <p>Дата добавления: ${product.created}</p>
+              <strong><p>${product.name}</p></strong>
+              <p>Цена: ${product.price}</p>
+              <p>Описание:<br>${product.descriptionHtml}</p>
+              <p>Дата добавления: ${product.creationTime}</p>
             </div>
           </c:forEach>
         </div>
-      </div>
-      <div class="col-md-1"></div>
     </div>
+    <div class="col-md-1"></div>
   </div>
 
 </div>

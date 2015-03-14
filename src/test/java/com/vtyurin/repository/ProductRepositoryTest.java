@@ -1,5 +1,7 @@
 package com.vtyurin.repository;
 
-public class ProductRepositoryTest {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public class ProductRepositoryTest {
 }

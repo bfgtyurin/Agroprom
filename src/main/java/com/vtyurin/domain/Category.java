@@ -51,20 +51,6 @@ public class Category extends BaseEntity {
         return nestedCategories;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Category category = (Category) o;
-        return Objects.equals(name, category.name) &&
-                Objects.equals(parent, category.parent);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, parent);
-    }
-
     static class Builder {
         private String name;
         private Category parent;
@@ -94,5 +80,29 @@ public class Category extends BaseEntity {
         Category build() {
             return new Category(this);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return Objects.equals(name, category.name) &&
+                Objects.equals(parent, category.parent);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, parent);
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "name='" + name + '\'' +
+                ", parent=" + parent +
+                ", nestedCategories=" + nestedCategories +
+                ", products=" + products +
+                "} " + super.toString();
     }
 }

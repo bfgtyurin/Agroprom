@@ -1,8 +1,10 @@
 package com.vtyurin.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import org.pegdown.Parser;
+import org.pegdown.PegDownProcessor;
+import org.pegdown.plugins.PegDownPlugins;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -12,7 +14,16 @@ public class Product extends BaseEntity {
     private String name;
     private BigDecimal price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "description_markdown")
+    private String descriptionMarkdown;
+
+    @Column(name = "description_html")
+    private String descriptionHtml;
+
+    @ManyToOne
+    private Manufacturer manufacturer;
+
+    @ManyToOne
     private Category category;
 
     public Product() {
@@ -43,6 +54,44 @@ public class Product extends BaseEntity {
         return category;
     }
 
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public String getDescriptionMarkdown() {
+        return descriptionMarkdown;
+    }
+
+    public void setDescriptionMarkdown(String description) {
+        this.descriptionMarkdown = description;
+    }
+
+    public String getDescriptionHtml() {
+        return descriptionHtml;
+    }
+
+    public void setDescriptionHtml(String descriptionHtml) {
+        this.descriptionHtml = descriptionHtml;
+    }
+
+    public Manufacturer getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(Manufacturer manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void parseMarkdown() {
+        String descriptionMarkdown = this.descriptionMarkdown;
+        if (descriptionMarkdown != null) {
+            PegDownProcessor markdownToHtmlParser = new PegDownProcessor(Parser.SUPPRESS_ALL_HTML);
+            this.descriptionHtml = markdownToHtmlParser.markdownToHtml(descriptionMarkdown);
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,12 +99,25 @@ public class Product extends BaseEntity {
         Product product = (Product) o;
         return Objects.equals(name, product.name) &&
                 Objects.equals(price, product.price) &&
-                Objects.equals(getCreated(), product.getCreated()) &&
-                Objects.equals(getUpdated(), product.getUpdated());
+                Objects.equals(descriptionMarkdown, product.descriptionMarkdown) &&
+                Objects.equals(manufacturer, product.manufacturer) &&
+                Objects.equals(category, product.category);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, price, getCreated(), getUpdated());
+        return Objects.hash(name, price, descriptionMarkdown, category, manufacturer);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "category=" + category +
+                ", price=" + price +
+                ", name='" + name + '\'' +
+                ", descriptionMarkdown='" + descriptionMarkdown + '\'' +
+                ", descriptionHtml='" + descriptionHtml + '\'' +
+                ", descriptionHtml='" + manufacturer + '\'' +
+                "} " + super.toString();
     }
 }

@@ -1,4 +1,4 @@
 <dataset>
-    <product id="1000" version="0" name="dummy product1" price="650" created="2015-03-12 12:22:33"
-             updated="2015-03-12 12:22:33"/>
+    <product id="1000" version="0" name="dummy product1" price="650" creation_time="2015-03-12 12:22:33"
+             modification_time="2015-03-12 12:22:33"/>
 </dataset>

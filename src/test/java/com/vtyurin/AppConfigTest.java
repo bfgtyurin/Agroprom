@@ -43,6 +43,5 @@ public class AppConfigTest {
         for (String bean : list) {
             logger.info("Bean '{}'", bean);
         }
-
     }
 }

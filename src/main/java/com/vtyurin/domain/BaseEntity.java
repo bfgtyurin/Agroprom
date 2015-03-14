@@ -15,11 +15,13 @@ public abstract class BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "creation_time", nullable = false)
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime created;
+    private DateTime creationTime;
 
+    @Column(name = "modification_time")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime updated;
+    private DateTime modificationTime;
 
     @Version
     private long version;
@@ -32,20 +34,20 @@ public abstract class BaseEntity implements Serializable {
         this.id = id;
     }
 
-    public DateTime getCreated() {
-        return created;
+    public DateTime getCreationTime() {
+        return creationTime;
     }
 
-    public void setCreated(DateTime created) {
-        this.created = created;
+    public void setCreationTime(DateTime created) {
+        this.creationTime = created;
     }
 
-    public DateTime getUpdated() {
-        return updated;
+    public DateTime getModificationTime() {
+        return modificationTime;
     }
 
-    public void setUpdated(DateTime updated) {
-        this.updated = updated;
+    public void setModificationTime(DateTime updated) {
+        this.modificationTime = updated;
     }
 
     public long getVersion() {
@@ -59,21 +61,22 @@ public abstract class BaseEntity implements Serializable {
     @PrePersist
     protected void prePersist() {
         DateTime now = DateTime.now();
-        this.setCreated(now);
-        this.setUpdated(now);
+        this.setCreationTime(now);
+        this.setModificationTime(now);
     }
 
     @PreUpdate
     protected void beforeUpdate() {
-        this.setUpdated(DateTime.now());
+        this.setModificationTime(DateTime.now());
     }
 
     @Override
     public String toString() {
-        return "BaseEntity {" +
+        return "BaseEntity{" +
                 "id=" + id +
-                ", created=" + created +
-                ", updated=" + updated +
-                "} ";
+                ", creationTime=" + creationTime +
+                ", modificationTime=" + modificationTime +
+                ", version=" + version +
+                '}';
     }
 }

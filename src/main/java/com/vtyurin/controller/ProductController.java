@@ -2,11 +2,7 @@ package com.vtyurin.controller;
 
 import com.vtyurin.domain.Product;
 import com.vtyurin.service.ProductService;
-import org.pegdown.PegDownProcessor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,20 +12,29 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Controller
-public class HomeController {
-    Logger logger = LoggerFactory.getLogger(HomeController.class);
+public class ProductController {
 
     @Inject
     ProductService productService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView index() {
-        ModelAndView modelAndView = new ModelAndView("index");
-
+    @RequestMapping(value = "/products", method = RequestMethod.GET)
+    public ModelAndView products() {
         List<Product> products = productService.findAllById();
+        ModelAndView modelAndView = new ModelAndView("products");
         modelAndView.addObject("products", products);
         modelAndView.addObject("product", new Product());
 
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/products", method = RequestMethod.POST)
+    public ModelAndView addProduct(@ModelAttribute Product product) {
+        productService.create(product);
+
+        ModelAndView modelAndView = new ModelAndView("products");
+
+        List<Product> products = productService.findAllById();
+        modelAndView.addObject("products", products);
         return modelAndView;
     }
 }
