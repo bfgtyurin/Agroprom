@@ -7,9 +7,9 @@ configuration without xml
 - Spring-data-jpa
 - Hibernate
 
-* Spring test
-* JUnit
-* Mockito
-* DBUnit
+- Spring test
+- JUnit
+- Mockito
+- DBUnit
 
 - [**pegdown** markdown processor](https://github.com/sirthias/pegdown)

@@ -1,6 +1,7 @@
 package com.vtyurin.controller;
 
 import com.vtyurin.domain.Product;
+import com.vtyurin.service.CategoryService;
 import com.vtyurin.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,31 +11,38 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ProductController {
 
+    private static final String REQUEST_MAPPING_PRODUCT = "/product";
+    private static final String REQUEST_MAPPING_PRODUCT_ADD = "/product/add";
+
+    private static final String VIEW_PRODUCT_VIEW = "product/view";
+
     @Inject
     ProductService productService;
 
-    @RequestMapping(value = "/products", method = RequestMethod.GET)
+    @Inject
+    CategoryService categoryService;
+
+    @RequestMapping(value = REQUEST_MAPPING_PRODUCT, method = RequestMethod.GET)
     public ModelAndView products() {
         List<Product> products = productService.findAllById();
-        ModelAndView modelAndView = new ModelAndView("products");
+        Map<Long, String> categories = categoryService.findAllSimple();
+
+        ModelAndView modelAndView = new ModelAndView(VIEW_PRODUCT_VIEW);
         modelAndView.addObject("products", products);
+        modelAndView.addObject("categories", categories);
         modelAndView.addObject("product", new Product());
 
         return modelAndView;
     }
 
-    @RequestMapping(value = "/products", method = RequestMethod.POST)
-    public ModelAndView addProduct(@ModelAttribute Product product) {
+    @RequestMapping(value = REQUEST_MAPPING_PRODUCT_ADD, method = RequestMethod.POST)
+    public String addProduct(@ModelAttribute Product product) {
         productService.create(product);
-
-        ModelAndView modelAndView = new ModelAndView("products");
-
-        List<Product> products = productService.findAllById();
-        modelAndView.addObject("products", products);
-        return modelAndView;
+        return "redirect:" + REQUEST_MAPPING_PRODUCT;
     }
 }

@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
@@ -60,5 +59,16 @@ public class DefaultCategoryService implements CategoryService {
     @Override
     public void delete(Long id) {
 
+    }
+
+    @Override
+    public Map<Long, String> findAllSimple() {
+        List<Category> list = categoryRepository.findAll();
+        Map<Long, String> result = new HashMap<>();
+        for (Category category : list) {
+            result.put(category.getId(), category.getName());
+        }
+
+        return result;
     }
 }

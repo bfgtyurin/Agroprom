@@ -27,7 +27,7 @@
         <a class="navbar-brand" href="/agroprom/">Agroprom</a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="products">Товары</a></li>
+        <li><a href="product">Товары</a></li>
         <li><a href="">Продавцы</a></li>
         <li><a href="">Производители</a></li>
       </ul>
@@ -65,7 +65,7 @@
   </div>
 
 </div>
-
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </body>
 </html>

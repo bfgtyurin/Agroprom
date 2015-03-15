@@ -1,18 +1,19 @@
 package com.vtyurin.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 public class Category extends BaseEntity {
+    private static final Logger logger = LoggerFactory.getLogger(Category.class);
 
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Category parent;
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
@@ -21,7 +22,7 @@ public class Category extends BaseEntity {
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private Set<Product> products;
 
-    protected Category() {
+    public Category() {
     }
 
     private Category(Builder builder) {

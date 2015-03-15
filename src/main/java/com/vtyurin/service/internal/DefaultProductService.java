@@ -33,4 +33,9 @@ public class DefaultProductService implements ProductService {
     public Product create(Product product) {
         return productRepository.save(product);
     }
+
+    @Override
+    public void delete(Long id) {
+        productRepository.delete(id);
+    }
 }

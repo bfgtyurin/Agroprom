@@ -23,10 +23,10 @@
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="/agroprom/">Agroprom</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/agroprom/">Agroprom</a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="products">Товары</a></li>
+        <li><a href="">Товары</a></li>
         <li><a href="">Продавцы</a></li>
         <li><a href="">Производители</a></li>
       </ul>
@@ -44,7 +44,7 @@
   <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-      <form:form method="POST" action="products" commandName="product" acceptCharset="UTF-8" htmlEscape="true">
+      <form:form id="product_form" action="product/add" method="POST" commandName="product" acceptCharset="UTF-8" htmlEscape="true">
         <div class="row">
           <div class="col-md-9">
             <div class="form-group">
@@ -59,6 +59,13 @@
             </div>
           </div>
         </div>
+
+        <div class="row">
+          <%--LAMBADA--%>
+          <div class="col-md-4">
+            <form:select path="category.id" items="${categories}"/>
+          </div>
+        </div>
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
@@ -71,40 +78,45 @@
       </form:form>
     </div>
   </div>
-
-  <div class="row">
+  <div class="row" id="product_list">
     <div class="col-md-1"></div>
     <div class="col-md-10">
       <table class="table">
         <thead>
-          <th>id</th>
-          <th>Название</th>
-          <th>Цена</th>
-          <th>Категория</th>
-          <th></th>
-          <th></th>
+        <th>id</th>
+        <th>Название</th>
+        <th>Цена</th>
+        <th>Категория</th>
+        <th></th>
+        <th></th>
         </thead>
         <tbody>
-          <c:forEach var="product" items="${products}">
-            <tr>
-              <td>${product.id}</td>
-              <td>${product.name}</td>
-              <td>${product.price}</td>
-              <td>${product.category.name}</td>
-              <td>
-                <button class="btn btn-default btn-xs">
-                  <span class="glyphicon glyphicon-edit"></span>
-                </button>
-              </td>
-              <td>
-                <button class="btn btn-default btn-xs">
-                  <span class="glyphicon glyphicon-remove"></span>
-                </button>
-              </td>
-            </tr>
-          </c:forEach>
+        <c:forEach var="product" items="${products}">
+          <tr>
+            <td>${product.id}</td>
+            <td>${product.name}</td>
+            <td>${product.price}</td>
+            <td>${product.category.name}</td>
+            <td>
+              <button class="btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-edit"></span>
+              </button>
+            </td>
+            <td>
+              <button id="delete_button" class="btn btn-default btn-xs" value="${product.id}">
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
+            </td>
+          </tr>
+        </c:forEach>
         </tbody>
       </table>
     </div>
   </div>
+  </div>
 </div>
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/product.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>
