@@ -1,8 +1,8 @@
 package com.vtyurin.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.pegdown.Parser;
 import org.pegdown.PegDownProcessor;
-import org.pegdown.plugins.PegDownPlugins;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -20,10 +20,12 @@ public class Product extends BaseEntity {
     @Column(name = "description_html")
     private String descriptionHtml;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Manufacturer manufacturer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Category category;
 
     public Product() {
@@ -99,14 +101,12 @@ public class Product extends BaseEntity {
         Product product = (Product) o;
         return Objects.equals(name, product.name) &&
                 Objects.equals(price, product.price) &&
-                Objects.equals(descriptionMarkdown, product.descriptionMarkdown) &&
-                Objects.equals(manufacturer, product.manufacturer) &&
-                Objects.equals(category, product.category);
+                Objects.equals(descriptionMarkdown, product.descriptionMarkdown);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, price, descriptionMarkdown, category, manufacturer);
+        return Objects.hash(name, price, descriptionMarkdown);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.vtyurin.service.internal;
 
 import com.vtyurin.domain.Product;
+import com.vtyurin.repository.CategoryRepository;
 import com.vtyurin.repository.ProductRepository;
 import com.vtyurin.service.ProductService;
 import org.slf4j.Logger;
@@ -19,14 +20,17 @@ public class DefaultProductService implements ProductService {
     @Inject
     ProductRepository productRepository;
 
+    @Inject
+    CategoryRepository categoryRepository;
+
     @Override
     public List<Product> findAll() {
         return productRepository.findAll();
     }
 
     @Override
-    public List<Product> findAllById() {
-        return productRepository.findOrderById();
+    public List<Product> findAllOrderById() {
+        return productRepository.findAllOrderById();
     }
 
     @Override

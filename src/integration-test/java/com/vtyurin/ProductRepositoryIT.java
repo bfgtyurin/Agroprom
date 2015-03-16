@@ -4,7 +4,6 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.vtyurin.config.db.CommonPersistenceConfig;
 import com.vtyurin.config.db.DatabaseConfigProfile;
-import com.vtyurin.config.db.H2EmbeddedConfig;
 import com.vtyurin.domain.Product;
 import com.vtyurin.repository.ProductRepository;
 import org.junit.Test;

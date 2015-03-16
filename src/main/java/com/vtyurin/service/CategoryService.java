@@ -25,5 +25,5 @@ public interface CategoryService {
 
     void delete(Long id);
 
-    Map<Long,String> findAllSimple();
+    Map<Long, String> findAllSimple();
 }

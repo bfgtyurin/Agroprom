@@ -8,7 +8,7 @@ public interface ProductService {
 
     List<Product> findAll();
 
-    List<Product> findAllById();
+    List<Product> findAllOrderById();
 
     Product create(Product product);
 

@@ -2,12 +2,9 @@ package com.vtyurin.controller;
 
 import com.vtyurin.domain.Product;
 import com.vtyurin.service.ProductService;
-import org.pegdown.PegDownProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,7 +23,7 @@ public class HomeController {
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("index");
 
-        List<Product> products = productService.findAllById();
+        List<Product> products = productService.findAllOrderById();
         modelAndView.addObject("products", products);
         modelAndView.addObject("product", new Product());
 

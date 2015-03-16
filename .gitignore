@@ -3,3 +3,5 @@
 .DS_Store
 target
 *.log
+
+src/main/webapp/resources/vendor

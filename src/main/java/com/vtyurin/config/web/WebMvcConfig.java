@@ -26,13 +26,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public ViewResolver jspViewResolver() {
+    public ViewResolver viewResolver() {
         logger.info("LOADING CONF FROM WEBCONFIG");
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setViewClass(JstlView.class);
         resolver.setContentType("text/html;charset=UTF-8");
-        resolver.setPrefix("/WEB-INF/jsp/");
-        resolver.setSuffix(".jsp");
+        resolver.setPrefix("/WEB-INF/");
+        resolver.setSuffix(".html");
 
         return resolver;
     }

@@ -3,17 +3,15 @@ package com.vtyurin.controller;
 import com.vtyurin.domain.Product;
 import com.vtyurin.service.CategoryService;
 import com.vtyurin.service.ProductService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.Map;
 
-@Controller
+@RestController
 public class ProductController {
 
     private static final String REQUEST_MAPPING_PRODUCT = "/product";
@@ -28,16 +26,8 @@ public class ProductController {
     CategoryService categoryService;
 
     @RequestMapping(value = REQUEST_MAPPING_PRODUCT, method = RequestMethod.GET)
-    public ModelAndView products() {
-        List<Product> products = productService.findAllById();
-        Map<Long, String> categories = categoryService.findAllSimple();
-
-        ModelAndView modelAndView = new ModelAndView(VIEW_PRODUCT_VIEW);
-        modelAndView.addObject("products", products);
-        modelAndView.addObject("categories", categories);
-        modelAndView.addObject("product", new Product());
-
-        return modelAndView;
+    public List<Product> products() {
+        return productService.findAllOrderById();
     }
 
     @RequestMapping(value = REQUEST_MAPPING_PRODUCT_ADD, method = RequestMethod.POST)
